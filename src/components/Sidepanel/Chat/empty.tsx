@@ -277,60 +277,59 @@ export const EmptySidePanel = () => {
             </p>
           </div>
         )}
-        {!isRefetching && ollamaStatus === "success" ? (
-          ollamaInfo.isOk ? (
-            <div className="inline-flex  items-center space-x-2">
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              <p className="dark:text-gray-400 text-gray-900">
-                {t("ollamaState.running")}
+        {!isRefetching && ollamaStatus === "success" && ollamaInfo.isOk && (
+          <div className="inline-flex  items-center space-x-2">
+            <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+            <p className="dark:text-gray-400 text-gray-900">
+              {t("ollamaState.running")}
+            </p>
+          </div>
+        )}
+
+        {!isRefetching && ollamaStatus === "success" && renderSection()}
+
+        {!isRefetching && ollamaStatus === "success" && !ollamaInfo.isOk && (
+          <div className="mt-4 flex flex-col space-y-2 justify-center items-center w-full">
+            <div className="inline-flex items-center space-x-2">
+              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+              <p className="text-xs text-red-500">
+                {t("ollamaState.notRunning")}
               </p>
-            </div>
-          ) : (
-            <div className="flex flex-col space-y-2 justify-center items-center">
-              <div className="inline-flex  space-x-2">
-                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                <p className="dark:text-gray-400 text-gray-900">
-                  {t("ollamaState.notRunning")}
-                </p>
-              </div>
-
-              <input
-                className="bg-gray-100 dark:bg-black dark:text-gray-100 rounded-md px-4 py-2 mt-2 w-full"
-                type="url"
-                value={ollamaURL}
-                onChange={(e) => setOllamaURL(e.target.value)}
-              />
-
               <button
                 onClick={() => {
                   saveOllamaURL(ollamaURL)
                   refetch()
                 }}
-                className="inline-flex mt-4 items-center rounded-md border border-transparent bg-black px-2 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-white dark:text-gray-800 dark:hover:bg-gray-100 dark:focus:ring-gray-500 dark:focus:ring-offset-gray-100 disabled:opacity-50 ">
-                <RotateCcw className="h-4 w-4 mr-3" />
+                className="inline-flex items-center text-xs text-blue-600 dark:text-blue-400 hover:underline">
+                <RotateCcw className="h-3 w-3 mr-1" />
                 {t("common:retry")}
               </button>
-              {ollamaURL &&
-                cleanUrl(ollamaURL) !== "http://127.0.0.1:11434" && (
-                  <p className="text-xs text-gray-700 dark:text-gray-400 mb-4 text-center">
-                    <Trans
-                      i18nKey="playground:ollamaState.connectionError"
-                      components={{
-                        anchor: (
-                          <a
-                            href="https://github.com/n4ze3m/page-assist/blob/main/docs/connection-issue.md"
-                            target="__blank"
-                            className="text-blue-600 dark:text-blue-400"></a>
-                        )
-                      }}
-                    />
-                  </p>
-                )}
             </div>
-          )
-        ) : null}
 
-        {ollamaStatus === "success" && ollamaInfo.isOk && renderSection()}
+            <input
+              className="bg-gray-100 dark:bg-black dark:text-gray-100 text-sm rounded-md px-3 py-1.5 w-full"
+              type="url"
+              value={ollamaURL}
+              onChange={(e) => setOllamaURL(e.target.value)}
+            />
+
+            {ollamaURL && cleanUrl(ollamaURL) !== "http://127.0.0.1:11434" && (
+              <p className="text-xs text-gray-700 dark:text-gray-400 text-center">
+                <Trans
+                  i18nKey="playground:ollamaState.connectionError"
+                  components={{
+                    anchor: (
+                      <a
+                        href="https://github.com/n4ze3m/page-assist/blob/main/docs/connection-issue.md"
+                        target="__blank"
+                        className="text-blue-600 dark:text-blue-400"></a>
+                    )
+                  }}
+                />
+              </p>
+            )}
+          </div>
+        )}
       </div>
     </div>
   )
