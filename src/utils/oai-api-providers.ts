@@ -70,6 +70,11 @@ export const OAI_API_PROVIDERS = [
     baseUrl: "https://openrouter.ai/api/v1"
   },
   {
+    label: "OrcaRouter",
+    value: "orcarouter",
+    baseUrl: "https://api.orcarouter.ai/v1"
+  },
+  {
     label: "Google AI",
     value: "gemini",
     baseUrl: "https://generativelanguage.googleapis.com/v1beta/openai"
