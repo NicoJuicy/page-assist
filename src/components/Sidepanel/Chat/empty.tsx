@@ -113,25 +113,23 @@ export const EmptySidePanel = () => {
           }}
           showSearch
           placeholder={t("common:selectAModel")}
-          style={{ width: "100%" }}
+          style={{ width: "100%", height: "100%" }}
           className="mt-4 min-w-60 max-w-64"
           options={ollamaInfo?.models?.map((model) => ({
             label: (
               <span
                 key={model.model}
                 data-title={model.name}
-                className="flex flex-row gap-3 items-center ">
+                className="flex flex-row gap-3 items-center whitespace-normal overflow-visible leading-[1.5]">
                 {model?.avatar ? (
                   <Avatar src={model.avatar} alt={model.name} size="small" />
                 ) : (
                   <ProviderIcons
                     provider={model?.provider}
-                    className="w-5 h-5"
+                    className="min-w-5 min-h-5 w-5 h-5"
                   />
                 )}
-                <span className="line-clamp-2">
-                  {model?.nickname || model.model}
-                </span>
+                <span>{model?.nickname || model.model}</span>
               </span>
             ),
             value: model.model
@@ -239,7 +237,10 @@ export const EmptySidePanel = () => {
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors duration-200 bg-black text-white dark:bg-white dark:text-black hover:opacity-90">
-              {t("common:pageActionInstall.button", "Install from Chrome Web Store")}
+              {t(
+                "common:pageActionInstall.button",
+                "Install from Chrome Web Store"
+              )}
             </a>
           </div>
         </Modal>
