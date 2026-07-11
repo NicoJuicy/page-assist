@@ -75,6 +75,11 @@ export const OAI_API_PROVIDERS = [
     baseUrl: "https://api.orcarouter.ai/v1"
   },
   {
+    label: "UnoRouter",
+    value: "unorouter",
+    baseUrl: "https://api.unorouter.com/v1"
+  },
+  {
     label: "Google AI",
     value: "gemini",
     baseUrl: "https://generativelanguage.googleapis.com/v1beta/openai"

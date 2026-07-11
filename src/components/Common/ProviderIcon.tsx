@@ -28,6 +28,7 @@ import { AnthropicIcon } from "../Icons/AnthropicIcon"
 import { AtlasCloudIcon } from "../Icons/AtlasCloud"
 import { BigModelZhipuIcon } from "../Icons/BigModelZhipuIcon"
 import { ZAiIcon } from "../Icons/ZAiIcon"
+import { UnoRouterIcon } from "../Icons/UnoRouterIcon"
 import { CanopyWaveIcon } from "../Icons/CanopyWaveIcon"
 import { MiniMaxIcon } from "../Icons/MiniMaxIcon"
 import { XiaomiMimoIcon } from "../Icons/XiaomiMimo"
@@ -105,6 +106,8 @@ export const ProviderIcons = ({
       return <BigModelZhipuIcon className={className} />
     case 'zai':
       return <ZAiIcon className={className} />
+    case 'unorouter':
+      return <UnoRouterIcon className={className} />
     case 'minimax':
       return <MiniMaxIcon className={className} />
     case 'xiaomimimo':
