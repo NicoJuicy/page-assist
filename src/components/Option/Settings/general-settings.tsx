@@ -73,7 +73,7 @@ export const GeneralSettings = () => {
 
   const [defaultThinkingMode, setDefaultThinkingMode] = useStorage(
     "defaultThinkingMode",
-    false
+    true
   )
 
   const [useMarkdownForUserMessage, setUseMarkdownForUserMessage] = useStorage(
