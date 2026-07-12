@@ -37,7 +37,7 @@ import { handleChatInputKeyDown } from "@/utils/key-down"
 import { getIsSimpleInternetSearch } from "@/services/search"
 import { useStorage } from "@plasmohq/storage/hook"
 import { useFocusShortcuts } from "@/hooks/keyboard"
-import { isThinkingCapableModel, isGptOssModel } from "~/libs/model-utils"
+import { useThinkingCapability } from "@/hooks/useThinkingCapability"
 import { useStoreChatModelSettings } from "~/store/model"
 import { getVariable } from "@/utils/select-variable"
 import { useMessageQueue } from "@/hooks/useMessageQueue"
@@ -234,6 +234,7 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
   const [defaultThinkingMode] = useStorage("defaultThinkingMode", false)
   const thinking = useStoreChatModelSettings((state) => state.thinking)
   const setThinking = useStoreChatModelSettings((state) => state.setThinking)
+  const { supportsThinking, isGptOss } = useThinkingCapability(selectedModel)
 
   React.useEffect(() => {
     if (dropedFile) {
@@ -486,8 +487,8 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
           />
         </div>
       )}
-      {defaultThinkingMode && isThinkingCapableModel(selectedModel) && (
-        isGptOssModel(selectedModel) ? (
+      {defaultThinkingMode && supportsThinking && (
+        isGptOss ? (
           <div className="flex items-center justify-between rounded-lg border border-gray-200 px-2 py-1.5 dark:border-[#404040]">
             <span className="text-xs text-gray-600 dark:text-gray-300">
               {t("tooltip.thinking")}
@@ -856,8 +857,8 @@ export const SidepanelForm = ({ dropedFile }: Props) => {
                             </Tooltip>
                           )}
                         {defaultThinkingMode &&
-                          isThinkingCapableModel(selectedModel) &&
-                          (isGptOssModel(selectedModel) ? (
+                          supportsThinking &&
+                          (isGptOss ? (
                             <Popover
                               content={
                                 <div>

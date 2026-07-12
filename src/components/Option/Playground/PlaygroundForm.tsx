@@ -37,7 +37,7 @@ import { DocumentChip } from "./DocumentChip"
 import { otherUnsupportedTypes } from "../Knowledge/utils/unsupported-types"
 import { PASTED_TEXT_CHAR_LIMIT } from "@/utils/constant"
 import { PlaygroundFile } from "./PlaygroundFile"
-import { isThinkingCapableModel, isGptOssModel } from "~/libs/model-utils"
+import { useThinkingCapability } from "@/hooks/useThinkingCapability"
 import { useStoreChatModelSettings } from "~/store/model"
 import { useMessageQueue } from "@/hooks/useMessageQueue"
 import { QueuedMessagesList } from "@/components/Common/QueuedMessagesList"
@@ -89,6 +89,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   const [defaultThinkingMode] = useStorage("defaultThinkingMode", false)
   const thinking = useStoreChatModelSettings((state) => state.thinking)
   const setThinking = useStoreChatModelSettings((state) => state.setThinking)
+  const { supportsThinking, isGptOss } = useThinkingCapability(selectedModel)
 
   const {
     tabMentionsEnabled,
@@ -521,8 +522,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
           />
         </div>
       )}
-      {defaultThinkingMode && isThinkingCapableModel(selectedModel) && (
-        isGptOssModel(selectedModel) ? (
+      {defaultThinkingMode && supportsThinking && (
+        isGptOss ? (
           <div className="flex items-center justify-between rounded-lg border border-gray-200 px-2 py-1.5 dark:border-[#404040]">
             <span className="text-xs text-gray-600 dark:text-gray-300">
               {t("tooltip.thinking")}
@@ -851,8 +852,8 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
                             </div>
                           </Tooltip>
                         )}
-                        {defaultThinkingMode && isThinkingCapableModel(selectedModel) &&
-                          (isGptOssModel(selectedModel) ? (
+                        {defaultThinkingMode && supportsThinking &&
+                          (isGptOss ? (
                             // For gpt-oss: Only show level selector (no on/off toggle)
                             <div className="inline-flex items-center gap-2">
                               <Tooltip title="Adjust reasoning intensity (always enabled)">
