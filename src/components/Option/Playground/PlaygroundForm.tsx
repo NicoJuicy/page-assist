@@ -86,7 +86,7 @@ export const PlaygroundForm = ({ dropedFile }: Props) => {
   const [autoStopTimeout] = useStorage("autoStopTimeout", 2000)
 
   // Thinking mode state
-  const [defaultThinkingMode] = useStorage("defaultThinkingMode", false)
+  const [defaultThinkingMode] = useStorage("defaultThinkingMode", true)
   const thinking = useStoreChatModelSettings((state) => state.thinking)
   const setThinking = useStoreChatModelSettings((state) => state.setThinking)
   const { supportsThinking, isGptOss } = useThinkingCapability(selectedModel)
