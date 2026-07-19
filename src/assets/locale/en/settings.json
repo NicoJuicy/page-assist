@@ -160,6 +160,10 @@
       "searxng": {
         "url": {
           "label": "SearXNG URL"
+        },
+        "apiKey": {
+          "label": "SearXNG API Key (Optional)",
+          "placeholder": "Enter your SearXNG API key"
         }
       },
       "braveApi": {

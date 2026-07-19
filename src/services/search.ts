@@ -86,6 +86,15 @@ export const setSearxngURL = async (searxngURL: string) => {
   await storage.set("searxngURL", searxngURL)
 }
 
+export const getSearxngApiKey = async () => {
+  const searxngApiKey = await storage2.get("searxngApiKey")
+  return searxngApiKey || ""
+}
+
+export const setSearxngApiKey = async (searxngApiKey: string) => {
+  await storage2.set("searxngApiKey", searxngApiKey)
+}
+
 export const getBraveApiKey = async () => {
   const braveApiKey = await storage2.get("braveApiKey")
   return braveApiKey || ""
@@ -209,6 +218,7 @@ export const getSearchSettings = async () => {
     visitSpecificWebsite,
     searxngURL,
     searxngJSONMode,
+    searxngApiKey,
     braveApiKey,
     tavilyApiKey,
     googleDomain,
@@ -227,6 +237,7 @@ export const getSearchSettings = async () => {
     getIsVisitSpecificWebsite(),
     getSearxngURL(),
     isSearxngJSONMode(),
+    getSearxngApiKey(),
     getBraveApiKey(),
     getTavilyApiKey(),
     getGoogleDomain(),
@@ -247,6 +258,7 @@ export const getSearchSettings = async () => {
     visitSpecificWebsite,
     searxngURL,
     searxngJSONMode,
+    searxngApiKey,
     braveApiKey,
     tavilyApiKey,
     googleDomain,
@@ -268,6 +280,7 @@ export const setSearchSettings = async ({
   visitSpecificWebsite,
   searxngJSONMode,
   searxngURL,
+  searxngApiKey,
   braveApiKey,
   tavilyApiKey,
   googleDomain,
@@ -286,6 +299,7 @@ export const setSearchSettings = async ({
   visitSpecificWebsite: boolean
   searxngURL: string
   searxngJSONMode: boolean
+  searxngApiKey: string
   braveApiKey: string
   tavilyApiKey: string
   googleDomain: string
@@ -305,6 +319,7 @@ export const setSearchSettings = async ({
     setIsVisitSpecificWebsite(visitSpecificWebsite),
     setSearxngJSONMode(searxngJSONMode),
     setSearxngURL(searxngURL),
+    setSearxngApiKey(searxngApiKey),
     setBraveApiKey(braveApiKey),
     setTavilyApiKey(tavilyApiKey),
     setGoogleDomain(googleDomain),
