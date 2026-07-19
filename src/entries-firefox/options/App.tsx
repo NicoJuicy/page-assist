@@ -25,7 +25,8 @@ function IndexOption() {
   }, [i18n, i18n.resolvedLanguage])
 
   return (
-    <MemoryRouter>
+    <MemoryRouter
+      initialEntries={[window.location.hash.replace("#", "") || "/"]}>
       <ConfigProvider
         theme={{
           algorithm:

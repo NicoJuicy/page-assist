@@ -329,6 +329,25 @@ export const EmptySidePanel = () => {
                 />
               </p>
             )}
+
+            <p className="text-xs text-gray-700 dark:text-gray-400 text-center">
+              <Trans
+                i18nKey="playground:ollamaState.noOllamaHint"
+                components={{
+                  anchor: (
+                    <button
+                      onClick={() => {
+                        browser.tabs.create({
+                          url: browser.runtime.getURL(
+                            "/options.html#/settings/ollama"
+                          )
+                        })
+                      }}
+                      className="text-blue-600 dark:text-blue-400 underline"></button>
+                  )
+                }}
+              />
+            </p>
           </div>
         )}
       </div>
