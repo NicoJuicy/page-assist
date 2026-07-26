@@ -4,10 +4,12 @@ import { useFontSize } from "@/context/FontSizeProvider"
 import { useMessageOption } from "@/hooks/useMessageOption"
 import {
   ALL_EXPORT_SECTIONS,
+  convertChatMessagesToPageAssist,
   exportPageAssistData,
   ExportSection,
   getAvailableImportSections,
   importPageAssistDataFromObject,
+  isChatMessagesExport,
   parseImportFile
 } from "@/libs/export-import"
 import {
@@ -328,7 +330,9 @@ export const SystemSettings = () => {
       const raw = await parseImportFile(file)
       const parsed = isOpenWebUIExport(raw)
         ? convertOpenWebUIToPageAssist(raw)
-        : raw
+        : isChatMessagesExport(raw)
+          ? convertChatMessagesToPageAssist(raw)
+          : raw
       const available = getAvailableImportSections(parsed)
       const availableKeys = Object.keys(available) as ExportSection[]
 
