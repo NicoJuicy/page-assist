@@ -88,6 +88,7 @@ export const searchChatMode = async (
       ...messages,
       {
         isBot: false,
+        createdAt: Date.now(),
         name: "You",
         message,
         sources: [],
@@ -95,6 +96,7 @@ export const searchChatMode = async (
       },
       {
         isBot: true,
+        createdAt: Date.now(),
         name: selectedModel,
         message: "▋",
         sources: [],
@@ -108,6 +110,7 @@ export const searchChatMode = async (
       ...messages,
       {
         isBot: true,
+        createdAt: Date.now(),
         name: selectedModel,
         message: "▋",
         sources: [],
@@ -202,7 +205,7 @@ export const searchChatMode = async (
       useOCR: useOCR
     })
 
-    const applicationChatHistory = generateHistory(history, selectedModel)
+    const applicationChatHistory = await generateHistory(history, selectedModel)
 
     if (prompt) {
       applicationChatHistory.unshift(
@@ -307,12 +310,14 @@ export const searchChatMode = async (
       ...history,
       {
         role: "user",
+        createdAt: Date.now(),
         content: message,
         image: imagesToSave.length > 0 ? imagesToSave[0] : undefined,
         images: imagesToSave.length > 0 ? imagesToSave : undefined
       },
       {
         role: "assistant",
+        createdAt: Date.now(),
         content: fullText
       }
     ])

@@ -1,9 +1,13 @@
 import { getEnabledMcpServers } from "@/db/dexie/mcp"
+import { isPageActionServer } from "@/services/page-action"
 import { McpServer } from "./types"
 import { HttpOnlyMcpClient } from "./http-client"
 
 export const getConfiguredMcpServers = async () => {
-  return await getEnabledMcpServers()
+  const servers = await getEnabledMcpServers()
+  // Page Action only joins sidepanel chats via its dedicated toggle
+  // (extraMcpServers); its tools cannot act on the web UI's own tab.
+  return servers.filter((server) => !isPageActionServer(server))
 }
 
 export const createMcpClient = (

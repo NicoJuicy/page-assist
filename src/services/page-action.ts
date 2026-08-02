@@ -186,6 +186,11 @@ export const setPageActionSystemPrompt = async (
   await storage.set(SYSTEM_PROMPT_KEY, value)
 }
 
+export const isPageActionServer = (
+  server: Pick<McpServer, "transport" | "url">
+): boolean =>
+  server.transport === "extension" && server.url === PAGE_ACTION_EXTENSION_ID
+
 export const getPageActionServer = async (): Promise<McpServer | undefined> => {
   const servers = await getAllMcpServers()
   return servers.find(

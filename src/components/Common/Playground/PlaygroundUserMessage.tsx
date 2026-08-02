@@ -10,6 +10,7 @@ import { ChatDocuments } from "@/models/ChatTypes"
 import { DocumentChip } from "./DocumentChip"
 import { DocumentFile } from "./DocumentFile"
 import { tagColors } from "@/utils/color"
+import { formatMessageTimestamp } from "@/utils/format-timestamp"
 
 const messageRenderStyle: React.CSSProperties = {
   contentVisibility: "auto",
@@ -47,11 +48,13 @@ type Props = {
   openReasoning?: boolean
   modelImage?: string
   modelName?: string
+  createdAt?: number
   documents?: ChatDocuments
 }
 
 export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
   const [checkWideMode] = useStorage("checkWideMode", false)
+  const [showMessageTimestamp] = useStorage("showMessageTimestamp", false)
   const [isBtnPressed, setIsBtnPressed] = React.useState(false)
   const [editMode, setEditMode] = React.useState(false)
   const { t } = useTranslation("common")
@@ -161,6 +164,12 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
               ))}
           </div>
         )}
+
+      {showMessageTimestamp && props.createdAt && !editMode ? (
+        <span className="text-[10px] text-gray-400 dark:text-gray-500">
+          {formatMessageTimestamp(props.createdAt)}
+        </span>
+      ) : null}
 
       {!props.isProcessing && !editMode ? (
         <div

@@ -73,6 +73,7 @@ export const tabChatMode = async (
       ...messages,
       {
         isBot: false,
+        createdAt: Date.now(),
         name: "You",
         message,
         sources: [],
@@ -81,6 +82,7 @@ export const tabChatMode = async (
       },
       {
         isBot: true,
+        createdAt: Date.now(),
         name: selectedModel,
         message: "▋",
         sources: [],
@@ -94,6 +96,7 @@ export const tabChatMode = async (
       ...messages,
       {
         isBot: true,
+        createdAt: Date.now(),
         name: selectedModel,
         message: "▋",
         sources: [],
@@ -166,7 +169,7 @@ export const tabChatMode = async (
     let source: any[] = []
 
 
-    const applicationChatHistory = generateHistory(history, selectedModel)
+    const applicationChatHistory = await generateHistory(history, selectedModel)
 
     let generationInfo: any | undefined = undefined
 
@@ -262,11 +265,13 @@ export const tabChatMode = async (
       ...history,
       {
         role: "user",
+        createdAt: Date.now(),
         content: message,
         image
       },
       {
         role: "assistant",
+        createdAt: Date.now(),
         content: fullText
       }
     ])

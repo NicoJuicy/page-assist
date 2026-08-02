@@ -85,7 +85,8 @@ const PlaygroundChatComponent = () => {
             openReasoning={openReasoning}
             modelImage={message?.modelImage}
             modelName={message?.modelName}
-            temporaryChat={temporaryChat}  
+            createdAt={message?.createdAt}
+            temporaryChat={temporaryChat}
             messageKind={message?.messageKind}
             toolCalls={message?.toolCalls}
             toolCallId={message?.toolCallId}

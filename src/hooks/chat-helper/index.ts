@@ -62,12 +62,14 @@ export const saveMessageOnError = async ({
       ...history,
       {
         role: "user",
+        createdAt: Date.now(),
         content: userMessage,
         image,
         images
       },
       {
         role: "assistant",
+        createdAt: Date.now(),
         content: botMessage
       }
     ])
