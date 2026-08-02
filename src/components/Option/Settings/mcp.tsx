@@ -51,6 +51,7 @@ import {
 } from "@/libs/mcp/utils"
 import { getServerFaviconUrl } from "@/components/Common/McpServerToggle"
 import { ToolExecutionModeControl } from "@/components/MCP/ToolExecutionModeControl"
+import { isPageActionServer } from "@/services/page-action"
 
 type ValidationSnapshot = {
   fingerprint: string
@@ -489,7 +490,7 @@ export const MCPSettingsApp = () => {
         <Table
           rowKey="id"
           loading={isLoading}
-          dataSource={servers || []}
+          dataSource={(servers || []).filter((s) => !isPageActionServer(s))}
           bordered
           scroll={{ x: 980 }}
           expandable={{
