@@ -111,6 +111,9 @@
       "showMoreForLargeMessage": {
         "label": "Show 'Show more' for large human messages"
       },
+      "showMessageTimestamp": {
+        "label": "Show Message Timestamp"
+      },
       "sidebarPosition": {
         "label": "Sidebar Position",
         "options": {

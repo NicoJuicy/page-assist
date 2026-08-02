@@ -82,6 +82,7 @@ const createAssistantMessage = ({
   modelImage?: string
 }): Message => ({
   isBot: true,
+  createdAt: Date.now(),
   name: selectedModel,
   message: "▋",
   sources: [],
@@ -381,6 +382,7 @@ export const runMcpNormalChatMode = async (
   const modelInfo = await getModelNicknameByID(selectedModel)
   const userEntry = {
     role: "user" as const,
+    createdAt: Date.now(),
     content: message,
     image: userImages[0],
     images: userImages
@@ -393,6 +395,7 @@ export const runMcpNormalChatMode = async (
       ...messages,
       {
         isBot: false,
+        createdAt: Date.now(),
         name: "You",
         message,
         sources: [],
@@ -462,7 +465,7 @@ export const runMcpNormalChatMode = async (
     useOCR
   })
 
-  const applicationChatHistory = generateHistory(history, selectedModel)
+  const applicationChatHistory = await generateHistory(history, selectedModel)
   let isMemoryContextAdded = false
   let memoryContext = ""
   if (memoryEnabled) {
@@ -635,6 +638,7 @@ export const runMcpNormalChatMode = async (
       if (storedToolCalls.length === 0) {
         const assistantHistoryEntry = {
           role: "assistant" as const,
+          createdAt: Date.now(),
           content: fullText
         }
 
@@ -679,6 +683,7 @@ export const runMcpNormalChatMode = async (
 
       const assistantToolCallEntry = {
         role: "assistant" as const,
+        createdAt: Date.now(),
         content: fullText,
         messageKind: "assistant_tool_calls" as const,
         toolCalls: storedToolCalls
@@ -784,6 +789,7 @@ export const runMcpNormalChatMode = async (
             ...uiMessages,
             {
               isBot: true,
+              createdAt: Date.now(),
               name: selectedModel,
               message: toolResultEntry.content,
               sources: [],
@@ -841,6 +847,7 @@ export const runMcpNormalChatMode = async (
             ...uiMessages,
             {
               isBot: true,
+              createdAt: Date.now(),
               name: selectedModel,
               message: toolErrorMessage,
               sources: [],

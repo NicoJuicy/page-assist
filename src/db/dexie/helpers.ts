@@ -164,6 +164,7 @@ export const formatToChatHistory = (
           ? message.images[0]
           : undefined,
       images: message.images,
+      createdAt: message.createdAt,
       messageType: message.messageType,
       messageKind: message.messageKind,
       toolCalls: message.toolCalls,
@@ -201,6 +202,7 @@ export const formatToMessage = (messages: MessageHistory): MessageType[] => {
       modelName: message?.modelName,
       modelImage: message?.modelImage,
       id: message.id,
+      createdAt: message.createdAt,
       documents: message?.documents,
       messageType: message?.messageType,
       messageKind: message?.messageKind,

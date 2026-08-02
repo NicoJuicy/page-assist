@@ -28,6 +28,7 @@ export type Message = {
   search?: WebSearch
   reasoning_time_taken?: number
   id?: string
+  createdAt?: number
   messageType?: string
   modelName?: string
   modelImage?: string
@@ -46,6 +47,7 @@ export type ChatHistory = {
   content: string
   image?: string
   images?: string[]
+  createdAt?: number
   messageType?: string
   messageKind?: ChatMessageKind
   toolCalls?: McpToolCall[]

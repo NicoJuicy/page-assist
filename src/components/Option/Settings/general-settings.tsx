@@ -156,6 +156,11 @@ export const GeneralSettings = () => {
     false
   )
 
+  const [showMessageTimestamp, setShowMessageTimestamp] = useStorage(
+    "showMessageTimestamp",
+    false
+  )
+
   const [sidebarPosition, setSidebarPosition] = useStorage(
     "sidebarPosition",
     "left"
@@ -596,6 +601,22 @@ export const GeneralSettings = () => {
         <Switch
           checked={showMoreForLargeMessage}
           onChange={(checked) => setShowMoreForLargeMessage(checked)}
+        />
+      </div>
+
+      <div className="flex flex-row justify-between">
+        <div className="inline-flex items-center gap-2">
+          <span className="text-gray-700   dark:text-neutral-50">
+            {t(
+              "generalSettings.settings.showMessageTimestamp.label",
+              "Show Message Timestamp"
+            )}
+          </span>
+        </div>
+
+        <Switch
+          checked={showMessageTimestamp}
+          onChange={(checked) => setShowMessageTimestamp(checked)}
         />
       </div>
 

@@ -184,6 +184,7 @@ export const normalChatMode = async (
       ...messages,
       {
         isBot: false,
+        createdAt: Date.now(),
         name: "You",
         message,
         sources: [],
@@ -199,6 +200,7 @@ export const normalChatMode = async (
       },
       {
         isBot: true,
+        createdAt: Date.now(),
         name: selectedModel,
         message: "▋",
         sources: [],
@@ -212,6 +214,7 @@ export const normalChatMode = async (
       ...messages,
       {
         isBot: true,
+        createdAt: Date.now(),
         name: selectedModel,
         message: "▋",
         sources: [],
@@ -254,7 +257,7 @@ export const normalChatMode = async (
       useOCR: useOCR
     })
 
-    const applicationChatHistory = generateHistory(history, selectedModel)
+    const applicationChatHistory = await generateHistory(history, selectedModel)
 
     if (prompt && !selectedPrompt) {
       applicationChatHistory.unshift(
@@ -384,12 +387,14 @@ export const normalChatMode = async (
       ...history,
       {
         role: "user",
+        createdAt: Date.now(),
         content: message,
         image: imagesToSave.length > 0 ? imagesToSave[0] : undefined,
         images: imagesToSave.length > 0 ? imagesToSave : undefined
       },
       {
         role: "assistant",
+        createdAt: Date.now(),
         content: fullText
       }
     ])

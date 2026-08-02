@@ -22,6 +22,7 @@ import { removeModelSuffix } from "@/db/dexie/models"
 import { GenerationInfo } from "./GenerationInfo"
 import { parseReasoning } from "@/libs/reasoning"
 import { humanizeMilliseconds } from "@/utils/humanize-milliseconds"
+import { formatMessageTimestamp } from "@/utils/format-timestamp"
 import { useStorage } from "@plasmohq/storage/hook"
 import { PlaygroundUserMessageBubble } from "./PlaygroundUserMessage"
 import { copyToClipboard } from "@/utils/clipboard"
@@ -71,6 +72,7 @@ type Props = {
   openReasoning?: boolean
   modelImage?: string
   modelName?: string
+  createdAt?: number
   onContinue?: () => void
   documents?: ChatDocuments
   actionInfo?: ChatActionInfo | null
@@ -207,6 +209,7 @@ const PlaygroundMessageComponent = (props: Props) => {
   )
   const [autoPlayTTS] = useStorage("isTTSAutoPlayEnabled", false)
   const [copyAsFormattedText] = useStorage("copyAsFormattedText", false)
+  const [showMessageTimestamp] = useStorage("showMessageTimestamp", false)
   const { t } = useTranslation("common")
   const { cancel, isSpeaking, speak } = useTTS()
   const hasSegmentedAssistantText = hasStandaloneAssistantText(props.segments)
@@ -316,18 +319,25 @@ const PlaygroundMessageComponent = (props: Props) => {
         </div>
 
         <div className="flex w-[calc(100%-50px)] flex-col gap-2 lg:w-[calc(100%-115px)]">
-          <span className="text-xs font-bold text-gray-800 dark:text-white">
-            {props.isBot
-              ? props.name === "chrome::gemini-nano::page-assist"
-                ? "Gemini Nano"
-                : removeModelSuffix(
-                    `${props?.modelName || props?.name}`?.replaceAll(
-                      /accounts\/[^\/]+\/models\//g,
-                      ""
+          <div className="flex items-baseline gap-2">
+            <span className="text-xs font-bold text-gray-800 dark:text-white">
+              {props.isBot
+                ? props.name === "chrome::gemini-nano::page-assist"
+                  ? "Gemini Nano"
+                  : removeModelSuffix(
+                      `${props?.modelName || props?.name}`?.replaceAll(
+                        /accounts\/[^\/]+\/models\//g,
+                        ""
+                      )
                     )
-                  )
-              : "You"}
-          </span>
+                : "You"}
+            </span>
+            {showMessageTimestamp && props.createdAt ? (
+              <span className="text-[10px] text-gray-400 dark:text-gray-500">
+                {formatMessageTimestamp(props.createdAt)}
+              </span>
+            ) : null}
+          </div>
 
           {props.isBot && props.isSearchingInternet && props.isLastMessage ? (
             <ActionInfo action={"webSearch"} />
@@ -655,6 +665,7 @@ const arePlaygroundMessagePropsEqual = (previous: Props, next: Props) =>
   previous.openReasoning === next.openReasoning &&
   previous.modelImage === next.modelImage &&
   previous.modelName === next.modelName &&
+  previous.createdAt === next.createdAt &&
   previous.onContinue === next.onContinue &&
   previous.documents === next.documents &&
   previous.actionInfo === next.actionInfo &&

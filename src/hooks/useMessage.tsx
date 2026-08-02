@@ -211,6 +211,7 @@ export const useMessage = () => {
         ...messages,
         {
           isBot: false,
+          createdAt: Date.now(),
           name: "You",
           message,
           sources: [],
@@ -218,6 +219,7 @@ export const useMessage = () => {
         },
         {
           isBot: true,
+          createdAt: Date.now(),
           name: selectedModel,
           message: "▋",
           sources: [],
@@ -231,6 +233,7 @@ export const useMessage = () => {
         ...messages,
         {
           isBot: true,
+          createdAt: Date.now(),
           name: selectedModel,
           message: "▋",
           sources: [],
@@ -386,7 +389,7 @@ export const useMessage = () => {
         useOCR
       })
 
-      const applicationChatHistory = generateHistory(history, selectedModel)
+      const applicationChatHistory = await generateHistory(history, selectedModel)
 
       let generationInfo: any | undefined = undefined
 
@@ -482,11 +485,13 @@ export const useMessage = () => {
         ...history,
         {
           role: "user",
+          createdAt: Date.now(),
           content: message,
           image,
         },
         {
           role: "assistant",
+          createdAt: Date.now(),
           content: fullText
         }
       ])
@@ -565,6 +570,7 @@ export const useMessage = () => {
         ...messages,
         {
           isBot: false,
+          createdAt: Date.now(),
           name: "You",
           message,
           sources: [],
@@ -572,6 +578,7 @@ export const useMessage = () => {
         },
         {
           isBot: true,
+          createdAt: Date.now(),
           name: selectedModel,
           message: "▋",
           sources: [],
@@ -585,6 +592,7 @@ export const useMessage = () => {
         ...messages,
         {
           isBot: true,
+          createdAt: Date.now(),
           name: selectedModel,
           message: "▋",
           sources: [],
@@ -737,10 +745,12 @@ export const useMessage = () => {
         ...history,
         {
           role: "user",
+          createdAt: Date.now(),
           content: message
         },
         {
           role: "assistant",
+          createdAt: Date.now(),
           content: fullText
         }
       ])
@@ -833,6 +843,7 @@ export const useMessage = () => {
         ...messages,
         {
           isBot: false,
+          createdAt: Date.now(),
           name: "You",
           message,
           sources: [],
@@ -840,6 +851,7 @@ export const useMessage = () => {
         },
         {
           isBot: true,
+          createdAt: Date.now(),
           name: selectedModel,
           message: "▋",
           sources: [],
@@ -853,6 +865,7 @@ export const useMessage = () => {
         ...messages,
         {
           isBot: true,
+          createdAt: Date.now(),
           name: selectedModel,
           message: "▋",
           sources: [],
@@ -897,7 +910,7 @@ export const useMessage = () => {
         })
       }
 
-      const applicationChatHistory = generateHistory(history, selectedModel)
+      const applicationChatHistory = await generateHistory(history, selectedModel)
 
       if (prompt && !selectedPrompt) {
         applicationChatHistory.unshift(
@@ -1008,12 +1021,14 @@ export const useMessage = () => {
         ...history,
         {
           role: "user",
+          createdAt: Date.now(),
           content: message,
           image,
           images: processedImages
         },
         {
           role: "assistant",
+          createdAt: Date.now(),
           content: fullText
         }
       ])
@@ -1101,6 +1116,7 @@ export const useMessage = () => {
         ...messages,
         {
           isBot: false,
+          createdAt: Date.now(),
           name: "You",
           message,
           sources: [],
@@ -1108,6 +1124,7 @@ export const useMessage = () => {
         },
         {
           isBot: true,
+          createdAt: Date.now(),
           name: selectedModel,
           message: "▋",
           sources: [],
@@ -1121,6 +1138,7 @@ export const useMessage = () => {
         ...messages,
         {
           isBot: true,
+          createdAt: Date.now(),
           name: selectedModel,
           message: "▋",
           sources: [],
@@ -1226,7 +1244,7 @@ export const useMessage = () => {
         })
       }
 
-      const applicationChatHistory = generateHistory(history, selectedModel)
+      const applicationChatHistory = await generateHistory(history, selectedModel)
 
       if (prompt) {
         applicationChatHistory.unshift(
@@ -1330,12 +1348,14 @@ export const useMessage = () => {
         ...history,
         {
           role: "user",
+          createdAt: Date.now(),
           content: message,
           image,
           images: processedImages
         },
         {
           role: "assistant",
+          createdAt: Date.now(),
           content: fullText
         }
       ])
@@ -1423,6 +1443,7 @@ export const useMessage = () => {
         ...messages,
         {
           isBot: false,
+          createdAt: Date.now(),
           name: "You",
           message,
           sources: [],
@@ -1431,6 +1452,7 @@ export const useMessage = () => {
         },
         {
           isBot: true,
+          createdAt: Date.now(),
           name: selectedModel,
           message: "▋",
           sources: [],
@@ -1444,6 +1466,7 @@ export const useMessage = () => {
         ...messages,
         {
           isBot: true,
+          createdAt: Date.now(),
           name: selectedModel,
           message: "▋",
           sources: [],
@@ -1576,6 +1599,7 @@ export const useMessage = () => {
         ...history,
         {
           role: "user",
+          createdAt: Date.now(),
           content: message,
           image,
           messageType,
@@ -1583,6 +1607,7 @@ export const useMessage = () => {
         },
         {
           role: "assistant",
+          createdAt: Date.now(),
           content: fullText
         }
       ])
