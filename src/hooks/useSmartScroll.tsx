@@ -9,9 +9,13 @@ export const useSmartScroll = (
   const containerRef = useRef<HTMLDivElement>(null)
   const [isAutoScrollEnabled, setIsAutoScrollEnabled] = useState(true)
   const scrollTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const programmaticResetTimeout = useRef<ReturnType<typeof setTimeout> | null>(
+    null
+  )
   const lastScrollTop = useRef(0)
   const lastScrollHeight = useRef(0)
   const isScrollingProgrammatically = useRef(false)
+  const isUserDragging = useRef(false)
   const previousResetKey = useRef<string | null | undefined>(resetKey)
   const pendingResetScroll = useRef(false)
 
@@ -37,7 +41,10 @@ export const useSmartScroll = (
     lastScrollTop.current = container.scrollTop
     lastScrollHeight.current = container.scrollHeight
 
-    setTimeout(
+    if (programmaticResetTimeout.current) {
+      clearTimeout(programmaticResetTimeout.current)
+    }
+    programmaticResetTimeout.current = setTimeout(
       () => {
         isScrollingProgrammatically.current = false
       },
@@ -50,7 +57,9 @@ export const useSmartScroll = (
     if (!container) return
 
     const handleScroll = () => {
-      if (isScrollingProgrammatically.current) return
+      // Programmatic scrolls must not disable auto-scroll, but scrollbar
+      // drags fire the same event, so let them through while the mouse is down
+      if (isScrollingProgrammatically.current && !isUserDragging.current) return
 
       const { scrollTop, scrollHeight } = container
       const isScrollingUp = scrollTop < lastScrollTop.current
@@ -73,10 +82,51 @@ export const useSmartScroll = (
       }, 300)
     }
 
+    // During streaming, programmatic scrolls fire faster than the suppression
+    // flag resets, so `scroll` events alone never see the user's scroll-up.
+    // Wheel/touch events are only produced by real user input, so they are a
+    // reliable signal to stop following the stream.
+    const handleWheel = (e: WheelEvent) => {
+      if (e.deltaY < 0) {
+        setIsAutoScrollEnabled(false)
+      }
+    }
+
+    let lastTouchY = 0
+    const handleTouchStart = (e: TouchEvent) => {
+      lastTouchY = e.touches[0]?.clientY ?? 0
+    }
+    const handleTouchMove = (e: TouchEvent) => {
+      const touchY = e.touches[0]?.clientY ?? 0
+      if (touchY > lastTouchY) {
+        setIsAutoScrollEnabled(false)
+      }
+      lastTouchY = touchY
+    }
+
+    const handleMouseDown = () => {
+      isUserDragging.current = true
+    }
+    const handleMouseUp = () => {
+      isUserDragging.current = false
+    }
+
     container.addEventListener("scroll", handleScroll, { passive: true })
+    container.addEventListener("wheel", handleWheel, { passive: true })
+    container.addEventListener("touchstart", handleTouchStart, {
+      passive: true
+    })
+    container.addEventListener("touchmove", handleTouchMove, { passive: true })
+    container.addEventListener("mousedown", handleMouseDown)
+    window.addEventListener("mouseup", handleMouseUp)
 
     return () => {
       container.removeEventListener("scroll", handleScroll)
+      container.removeEventListener("wheel", handleWheel)
+      container.removeEventListener("touchstart", handleTouchStart)
+      container.removeEventListener("touchmove", handleTouchMove)
+      container.removeEventListener("mousedown", handleMouseDown)
+      window.removeEventListener("mouseup", handleMouseUp)
       if (scrollTimeout.current) {
         clearTimeout(scrollTimeout.current)
       }
