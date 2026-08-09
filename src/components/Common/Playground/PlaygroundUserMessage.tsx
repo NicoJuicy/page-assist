@@ -50,6 +50,7 @@ type Props = {
   modelName?: string
   createdAt?: number
   documents?: ChatDocuments
+  temporaryChat?: boolean
 }
 
 export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
@@ -117,7 +118,11 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
         <div
           dir="auto"
           data-is-not-editable={!editMode}
-          className={`message-bubble bg-gray-50 dark:bg-[#242424] rounded-3xl prose dark:prose-invert break-words text-primary min-h-7 prose-p:opacity-95 prose-strong:opacity-100 bg-foreground border border-input-border max-w-[100%] sm:max-w-[90%] px-4 py-2.5 rounded-br-lg dark:border-[#2a2a2a] ${
+          className={`message-bubble bg-gray-50 dark:bg-[#242424] rounded-3xl prose dark:prose-invert break-words text-primary min-h-7 prose-p:opacity-95 prose-strong:opacity-100 bg-foreground max-w-[100%] sm:max-w-[90%] px-4 py-2.5 rounded-br-lg ${
+            props.temporaryChat
+              ? "border-2 border-dotted border-violet-400 dark:border-gray-400"
+              : "border border-input-border dark:border-[#2a2a2a]"
+          } ${
             props.message_type && props.message_type !== "normal" && !editMode ? "italic" : ""
           }`}>
           <HumanMessage message={props.message} />
@@ -127,7 +132,11 @@ export const PlaygroundUserMessageBubble: React.FC<Props> = (props) => {
       {editMode && (
         <div
           dir="auto"
-          className={`message-bubble bg-gray-50 dark:bg-[#2a2a2a] rounded-3xl prose dark:prose-invert break-words text-primary min-h-7 prose-p:opacity-95 prose-strong:opacity-100 bg-foreground border border-input-border max-w-[100%] sm:max-w-[90%] px-4 py-2.5 rounded-br-lg dark:border-[#2a2a2a] ${
+          className={`message-bubble bg-gray-50 dark:bg-[#2a2a2a] rounded-3xl prose dark:prose-invert break-words text-primary min-h-7 prose-p:opacity-95 prose-strong:opacity-100 bg-foreground max-w-[100%] sm:max-w-[90%] px-4 py-2.5 rounded-br-lg ${
+            props.temporaryChat
+              ? "border-2 border-dotted border-violet-400 dark:border-gray-400"
+              : "border border-input-border dark:border-[#2a2a2a]"
+          } ${
             props.message_type && props.message_type !== "normal" && !editMode ? "italic" : ""
           }`}>
           <div className="w-screen max-w-[100%]">

@@ -404,7 +404,11 @@ const PlaygroundMessageComponent = (props: Props) => {
                   className={`prose whitespace-pre-line text-sm prose-p:leading-relaxed prose-pre:p-0 dark:prose-invert dark:prose-dark ${
                     props.message_type &&
                     "italic text-sm text-gray-500 dark:text-gray-400"
-                  } ${checkWideMode ? "max-w-none" : ""}`}>
+                  } ${checkWideMode ? "max-w-none" : ""} ${
+                    props.temporaryChat
+                      ? "self-start rounded-2xl border-2 border-dotted border-violet-400 px-3 py-2 dark:border-gray-400"
+                      : ""
+                  }`}>
                   {props.message}
                 </p>
               )

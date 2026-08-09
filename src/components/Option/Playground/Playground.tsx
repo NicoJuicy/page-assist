@@ -37,6 +37,7 @@ const PlaygroundComponent = () => {
     setSelectedSystemPrompt,
     streaming,
     webuiTemporaryChat,
+    temporaryChat,
     setTemporaryChat,
     setSelectedQuickPrompt
   } = useMessageOption()
@@ -194,7 +195,6 @@ const PlaygroundComponent = () => {
           style={{ opacity: 0.9, pointerEvents: "none" }}
         />
       )}
-
       <div
         ref={containerRef}
         className="custom-scrollbar flex h-full w-full flex-col items-center overflow-x-hidden overflow-y-auto px-5 relative z-10">
