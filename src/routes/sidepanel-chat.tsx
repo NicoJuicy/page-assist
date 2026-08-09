@@ -49,6 +49,7 @@ const SidepanelChat = () => {
     defaultChatWithWebsite,
     chatMode,
     setChatMode,
+    temporaryChat,
     setTemporaryChat,
     sidepanelTemporaryChat,
     clearChat,
