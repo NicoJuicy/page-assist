@@ -62,6 +62,9 @@
       "userChatBubble": {
         "label": "Use Chat Bubble for User Messages"
       },
+      "hideChatScrollbar": {
+        "label": "Hide Chat Scrollbar"
+      },
       "autoCopyResponseToClipboard": {
         "label": "Automatically Copy Response to Clipboard"
       },
