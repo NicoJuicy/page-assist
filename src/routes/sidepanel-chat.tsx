@@ -35,6 +35,7 @@ const SidepanelChat = () => {
   >("idle")
 
   const [defaultCopilotPrompt] = useStorage("defaultCopilotPrompt", undefined)
+  const [hideChatScrollbar] = useStorage("hideChatScrollbar", false)
 
   useMigration()
   const {
@@ -243,7 +244,7 @@ const SidepanelChat = () => {
 
           <div
             ref={containerRef}
-            className="custom-scrollbar flex h-full w-full flex-col items-center overflow-x-hidden overflow-y-auto px-5 relative z-10">
+            className={`${hideChatScrollbar ? "no-scrollbar" : "custom-scrollbar"} flex h-full w-full flex-col items-center overflow-x-hidden overflow-y-auto px-5 relative z-10`}>
             <SidePanelBody />
           </div>
 

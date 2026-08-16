@@ -17,6 +17,11 @@ import { getAllPrompts, getAllPromptsSystem } from "@/db/dexie/helpers"
 export const GeneralSettings = () => {
   const [userChatBubble, setUserChatBubble] = useStorage("userChatBubble", true)
 
+  const [hideChatScrollbar, setHideChatScrollbar] = useStorage(
+    "hideChatScrollbar",
+    false
+  )
+
   const [defaultCopilotPrompt, setDefaultCopilotPrompt] = useStorage(
     "defaultCopilotPrompt",
     undefined
@@ -736,6 +741,24 @@ export const GeneralSettings = () => {
           onChange={(checked) => setMcpHumanInLoop(checked)}
         />
       </div>
+
+
+      <div className="flex flex-row justify-between">
+        <div className="inline-flex items-center gap-2">
+          <span className="text-gray-700   dark:text-neutral-50">
+            {t(
+              "generalSettings.settings.hideChatScrollbar.label",
+              "Hide Chat Scrollbar"
+            )}
+          </span>
+        </div>
+
+        <Switch
+          checked={hideChatScrollbar}
+          onChange={(checked) => setHideChatScrollbar(checked)}
+        />
+      </div>
+
 
       <div className="flex flex-row justify-between">
         <span className="text-gray-700 dark:text-neutral-50 ">
